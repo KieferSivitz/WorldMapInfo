@@ -49,13 +49,18 @@
             countryName
           });
 
+          let munny;
+          Object.keys(json2.currencies).forEach((key) => {
+            munny = `${key} - ${json2.currencies[key].name} - ${json2.currencies[key].symbol}`;
+          });
+
           if (json2) {
             Object.assign(data, {
               population : json2.population,
               drivesOn : json2?.car?.side,
               population : json2.population.toLocaleString(),
-              capital : json2.capital,
-              currencies : json2.currencies,
+              capital : json2.capital[0],
+              currencies : munny,
               unMember : json2.unMember
             });
           }
