@@ -59,7 +59,11 @@
               unMember : json2.unMember
             });
           }
-          makeNastyTableFromObject(data, '#dataDump');
+          if (data.countryCode){
+            makeNastyTableFromObject(data, '#dataDump');
+          } else {
+            document.querySelector('#dataDump').innerHTML = '';
+          }
         } catch (e) {
           console.error(e);
         };
