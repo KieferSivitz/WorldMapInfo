@@ -26,14 +26,13 @@
         document.querySelector(elementName).innerHTML=tableString;
       }
       const getPosition = async (latitude, longitude) => {
-        const data = { latitude, longitude };
+        const data = { };
 
         try {
           const res = await fetch(`https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=bdc_2c06aa5a162b4ac2bf0310033e77abd6`);
           const json = await res.json();
 
 
-          const city = json.city;
           const administrativeObj = json.localityInfo.administrative.sort((a, b) => a.adminLevel - b.adminLevel || a.order - b.order).reverse().pop();
           const administrativeName = administrativeObj ? administrativeObj.name : '';
           const backupCountryCode = administrativeObj ? administrativeObj.isoCode : '';
@@ -45,7 +44,6 @@
           const json2 = (await wikiData.json())[0];
 
           Object.assign(data, {
-            city,
             continent: json.continent,
             countryCode,
             countryName
@@ -55,7 +53,7 @@
             Object.assign(data, {
               population : json2.population,
               drivesOn : json2?.car?.side,
-              population : json2.population,
+              population : json2.population.toLocaleString(),
               capital : json2.capital,
               currencies : json2.currencies,
               unMember : json2.unMember
