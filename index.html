@@ -15,13 +15,18 @@
           const res = await fetch(`https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=bdc_2c06aa5a162b4ac2bf0310033e77abd6`);
           const json = await res.json();
 
+
           const city = json.city;
+          const administrativeObj = json.localityInfo.administrative.sort((a, b) => a.adminLevel - b.adminLevel || a.order - b.order).reverse().pop();
+          const administrativeName = administrativeObj ? administrativeObj.name : '';
+          const backupCountryCode = administrativeObj ? administrativeObj.isoCode : '';
+          const informative = json.localityInfo.informative.sort((a, b) => a.order - b.order).pop().name;
 
           Object.assign(data, {
             city,
             continent: json.continent,
-            countryCode: json.countryCode,
-            countryName: json.countryName,
+            countryCode: json.countryCode.length > 0 ? json.countryCode : backupCountryCode,
+            countryName: json.countryName.length > 0 ? json.countryName : administrativeName,
             postCode: json.postCode
           });
         } catch (e) {
@@ -42,7 +47,9 @@
         return data;
       };
       function initialize() {
-        earth = new WE.map('earth_div');
+        earth = new WE.map('earth_div', {
+          tilting: false,
+        });
         WE.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
           attribution: '© OpenStreetMap contributors'
         }).addTo(earth);
