@@ -8,6 +8,23 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>Country Identifier</title>
     <script>
+      const makeNastyTableFromObject = (jsonObject, elementName) => {
+        let tableString="<table><tr>"
+        for(let prop in jsonObject){
+          tableString+="<tr>"
+            tableString+=`<td>${prop}</td>`
+            if (typeof jsonObject[prop] === 'object') {
+
+              tableString+=`<td>${JSON.stringify(jsonObject[prop], null, ' ')}</td>`
+            } else {
+              tableString+=`<td>${jsonObject[prop]}</td>`
+            }
+          tableString+="</tr>"
+        }
+        tableString+=`</table>`;
+
+        document.querySelector(elementName).innerHTML=tableString;
+      }
       const getPosition = async (latitude, longitude) => {
         const data = { latitude, longitude };
 
@@ -22,13 +39,29 @@
           const backupCountryCode = administrativeObj ? administrativeObj.isoCode : '';
           const informative = json.localityInfo.informative.sort((a, b) => a.order - b.order).pop().name;
 
+          const countryCode = json.countryCode.length > 0 ? json.countryCode : backupCountryCode;
+          const countryName = json.countryName.length > 0 ? json.countryName : administrativeName;
+          let wikiData = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
+          const json2 = (await wikiData.json())[0];
+
           Object.assign(data, {
             city,
             continent: json.continent,
-            countryCode: json.countryCode.length > 0 ? json.countryCode : backupCountryCode,
-            countryName: json.countryName.length > 0 ? json.countryName : administrativeName,
-            postCode: json.postCode
+            countryCode,
+            countryName
           });
+
+          if (json2) {
+            Object.assign(data, {
+              population : json2.population,
+              drivesOn : json2?.car?.side,
+              population : json2.population,
+              capital : json2.capital,
+              currencies : json2.currencies,
+              unMember : json2.unMember
+            });
+          }
+          makeNastyTableFromObject(data, '#dataDump');
         } catch (e) {
           console.error(e);
         };
@@ -43,7 +76,6 @@
         if (latitude && longitude) {
           document.querySelector('#LatLong').textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
         }
-
         return data;
       };
       function initialize() {
@@ -70,6 +102,7 @@
         <p id="LatLong"></p>
         <image id="countryFlag"></image>
         <p id="countryName"></p>
+        <p id="dataDump"></p>
       </div>
     </div>
   </body>
