@@ -48,16 +48,31 @@ html {
   text-align: left;
   width: 100%;
 }
+#moreDetails {
+  margin: 0;
+}
+p {
+  margin: 10px;
+}
 
 #titleText {
   font-size: 3em;
   margin-bottom: 0;
 }
+table, th, td {
+  border: 1px solid;
+}
 
+table {
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-bottom: 1px;
+}
 
 table {
   width: 100%;
 }
 td {
   padding: 5px;
+  padding-left: 10px;
 }
