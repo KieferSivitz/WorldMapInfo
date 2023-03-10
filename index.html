@@ -111,10 +111,7 @@
         return data;
       };
       function initialize() {
-        earth = new WE.map('earth_div', {
-          tilting: false,
-          sky: false
-        });
+        earth = new WE.map('earth_div', {});
         WE.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
           attribution: '© OpenStreetMap contributors'
         }).addTo(earth);
