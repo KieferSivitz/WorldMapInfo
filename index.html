@@ -68,7 +68,7 @@
           if (json2 && json2.tld) {
             tld = json2.tld.join(', ');
           }
-          const capital = json2.capital[0] || '';
+          const capital = json2 ? json2.capital[0] : '';
 
           if (json2) {
             Object.assign(data, {
@@ -83,10 +83,14 @@
               Languages: languages
             });
           }
-          if (json2.coatOfArms) {
+          if (json2 && json2.coatOfArms) {
             document.querySelector('#countryCoat').src = json2.coatOfArms.png;
+            document.querySelector('#countryCoatLabel').src = 'Coat of Arms';
+          } else {
+            document.querySelector('#countryCoatLabel').src = '';
+            document.querySelector('#countryCoat').src = '';
           }
-          if (data.CountryCode){
+          if (json2 && data.CountryCode){
             makeNastyTableFromObject(data, '#dataDump');
           }
         } catch (e) {
@@ -133,7 +137,7 @@
         <image id="countryFlag"></image>
         <p id="countryName"></p>
         <p id="dataDump"></p>
-        <p>Coat of Arms</p>
+        <p id="countryCoatLabel">Coat of Arms</p>
         <image id="countryCoat"></image>
       </div>
     </div>
