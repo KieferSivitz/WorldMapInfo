@@ -76,6 +76,8 @@
             if (json2.tld) {
               tld = json2.tld.join(', ');
             }
+
+            // Data for the first, clean table
             Object.assign(data, {
               Population : json2.population,
               DrivesOn : json2?.car?.side,
@@ -90,15 +92,10 @@
             if (data.CountryCode){
               makeNastyTableFromObject(data, '#dataDump');
             }
-
-          }
-
-          if (json2 && json2.coatOfArms) {
-            document.querySelector('#countryCoat').src = json2.coatOfArms?.svg || '';
-            document.querySelector('#countryCoatLabel').textContent = 'Coat of Arms';
-          } else {
-            document.querySelector('#countryCoatLabel').src = '';
-            document.querySelector('#countryCoat').textContent = '';
+            if (json2.coatOfArms) {
+              document.querySelector('#countryCoat').src = json2.coatOfArms?.svg || '';
+              document.querySelector('#countryCoatLabel').textContent = 'Coat of Arms';
+            }
           }
         } catch (e) {
           console.error(e);
