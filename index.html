@@ -31,9 +31,8 @@
         const data = { };
 
         try {
-          const res = await fetch(`https://api-bdc.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=bdc_2c06aa5a162b4ac2bf0310033e77abd6`);
+          const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`);
           const json = await res.json();
-
 
           const administrativeObj = json.localityInfo.administrative.sort((a, b) => a.adminLevel - b.adminLevel || a.order - b.order).reverse().pop();
           const administrativeName = administrativeObj ? administrativeObj.name : '';
