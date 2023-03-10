@@ -19,6 +19,8 @@ code {
 
 #root {
   background-color: rgb(108, 7, 202);
+  padding-left: 40px;
+  padding-bottom: 40px;
   width: 40%;
   font-size: 1.5em;
   bottom: 0;
