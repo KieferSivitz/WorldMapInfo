@@ -35,6 +35,7 @@ html {
   width: 80%;
   background-color: rgb(18, 18, 18);
   text-align: center;
+  padding-bottom: 5%;
 }
 
 #side-panel {
@@ -50,7 +51,9 @@ html {
 
 #titleText {
   font-size: 3em;
+  margin-bottom: 0;
 }
+
 
 table {
   width: 100%;
