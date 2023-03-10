@@ -68,13 +68,14 @@
           if (json2 && json2.tld) {
             tld = json2.tld.join(', ');
           }
+          const capital = json2.capital[0] || '';
 
           if (json2) {
             Object.assign(data, {
               Population : json2.population,
               DrivesOn : json2?.car?.side,
               Population : json2.population.toLocaleString(),
-              Capital : json2.capital[0],
+              Capital : capital,
               Currencies : munny,
               UNMember : json2.unMember,
               TLD: tld,
