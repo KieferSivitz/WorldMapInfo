@@ -46,7 +46,6 @@
             wikiData = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
             json2 = (await wikiData.json())[0];
           }
-          console.log(json2);
 
           Object.assign(data, {
             continent: json.continent,
@@ -65,7 +64,7 @@
             languages = Object.values(json2.languages).join(', ');
           }
           let tld;
-          if (json2.tld ) {
+          if (json2 && json2.tld) {
             tld = json2.tld.join(', ');
           }
 
