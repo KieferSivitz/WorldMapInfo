@@ -83,8 +83,8 @@
               Languages: languages
             });
           }
-          if (json2 && json2.coatOfArms && json2.coatOfArms != {}) {
-            document.querySelector('#countryCoat').src = json2.coatOfArms.svg;
+          if (json2 && json2.coatOfArms) {
+            document.querySelector('#countryCoat').src = json2.coatOfArms?.svg || '';
             document.querySelector('#countryCoatLabel').src = 'Coat of Arms';
           } else {
             document.querySelector('#countryCoatLabel').src = '';
