@@ -105,7 +105,7 @@
           document.querySelector('#countryFlag').src = `https://flagcdn.com/w320/${(data.CountryCode).toLowerCase()}.png`;
           document.querySelector('#countryName').textContent = data.countryName;
         } else {
-          document.querySelector('#countryFlag').src = '';
+          document.querySelector('#countryFlag').src = './smiley.png';
           document.querySelector('#countryName').textContent = '';
         }
         if (latitude && longitude) {
@@ -135,7 +135,7 @@
       <div id="side-panel">
         <h1 id="moreDetails">More Information</h1>
         <p id="LatLong"></p>
-        <image id="countryFlag"></image>
+        <input type="image" id="countryFlag"  src="smiley.png"  onclick="buttonClick()" />
         <p id="countryName"></p>
         <p id="dataDump"></p>
         <p id="countryCoatLabel"></p>
@@ -144,5 +144,43 @@
         <p id="jsonList"></p>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@latest/dist/confetti.browser.min.js"></script>
+    <script>
+        var count = 200;
+        var defaults = {
+          origin: { y: 0.7 }
+        };
+
+        function fire(particleRatio, opts) {
+          confetti(Object.assign({}, defaults, opts, {
+            particleCount: Math.floor(count * particleRatio)
+          }));
+        }
+        
+        function buttonClick() {
+            fire(0.25, {
+              spread: 42,
+              startVelocity: 42,
+            });
+            fire(0.2, {
+              spread: 69,
+            });
+            fire(0.35, {
+              spread: 100,
+              decay: 0.91,
+              scalar: 0.8
+            });
+            fire(0.1, {
+              spread: 169,
+              startVelocity: 42,
+              decay: 0.92,
+              scalar: 1.2
+            });
+            fire(0.1, {
+              spread: 169,
+              startVelocity: 42,
+            });
+        }
+    </script>
   </body>
 </html>

@@ -81,6 +81,10 @@ table {
   width: 100%;
 }
 
+#countryFlag {
+  max-width: 400px;
+}
+
 #countryCoat {
   max-width: 320px;
   max-height: 320px;
