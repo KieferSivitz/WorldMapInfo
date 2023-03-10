@@ -16,11 +16,14 @@ code {
     monospace;
 }
 
+
 #root {
   background-color: rgb(108, 7, 202);
   width: 40%;
   font-size: 1.5em;
-  padding: 20px;
+  bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 html {
   padding: 0; 
@@ -37,16 +40,19 @@ html {
   text-align: center;
   padding-bottom: 5%;
 }
+::-webkit-scrollbar {
+  color: blue;
+}
 
 #side-panel {
-  padding-top: 5px;
   text-align: center;
   height: 100%;
+  width: 100%;
 }
 
 #dataDump {
   text-align: left;
-  width: 100%;
+  width: 95%;
 }
 #moreDetails {
   margin: 0;
