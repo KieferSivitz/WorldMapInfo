@@ -41,8 +41,12 @@
 
           const countryCode = json.countryCode.length > 0 ? json.countryCode : backupCountryCode;
           const countryName = json.countryName.length > 0 ? json.countryName : administrativeName;
-          let wikiData = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
-          const json2 = (await wikiData.json())[0];
+          let wikiData, json2;
+          if (countryCode) {
+            wikiData = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
+            json2 = (await wikiData.json())[0];
+          }
+          console.log(json2);
 
           Object.assign(data, {
             continent: json.continent,
@@ -51,18 +55,31 @@
           });
 
           let munny;
-          Object.keys(json2.currencies).forEach((key) => {
-            munny = `${key} - ${json2.currencies[key].name} - ${json2.currencies[key].symbol}`;
-          });
+          if (json2 && json2.currencies) {
+            Object.keys(json2.currencies).forEach((key) => {
+              munny = `${key} - ${json2.currencies[key].name} - ${json2.currencies[key].symbol}`;
+            });
+          }
+          let languages = '';
+          if (json2 && json2.languages) {
+            languages = Object.values(json2.languages).join(', ');
+          }
+          let tld;
+          if (json2.tld ) {
+            tld = json2.tld.join(', ');
+          }
 
           if (json2) {
             Object.assign(data, {
-              population : json2.population,
-              drivesOn : json2?.car?.side,
-              population : json2.population.toLocaleString(),
-              capital : json2.capital[0],
-              currencies : munny,
-              unMember : json2.unMember
+              Population : json2.population,
+              DrivesOn : json2?.car?.side,
+              Population : json2.population.toLocaleString(),
+              Capital : json2.capital[0],
+              Currencies : munny,
+              UnMember : json2.unMember,
+              TLD: tld,
+              NameForPeople: json2.demonyms.eng.f,
+              Languages: languages
             });
           }
           if (data.countryCode){
