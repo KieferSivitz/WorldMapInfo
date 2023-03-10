@@ -48,9 +48,9 @@
           }
 
           Object.assign(data, {
-            continent: json.continent,
-            countryCode,
-            countryName
+            Continent: json.continent,
+            CountryCode: countryCode,
+            CountryName: countryName
           });
 
           let munny;
@@ -81,15 +81,15 @@
               Languages: languages
             });
           }
-          if (data.countryCode){
+          if (data.CountryCode){
             makeNastyTableFromObject(data, '#dataDump');
           }
         } catch (e) {
           console.error(e);
         };
 
-        if (data.countryCode) {
-          document.querySelector('#countryFlag').src = `https://flagcdn.com/w160/${(data.countryCode).toLowerCase()}.png`;
+        if (data.CountryCode) {
+          document.querySelector('#countryFlag').src = `https://flagcdn.com/w320/${(data.CountryCode).toLowerCase()}.png`;
           document.querySelector('#countryName').textContent = data.countryName;
         } else {
           document.querySelector('#countryFlag').src = '';
@@ -103,6 +103,7 @@
       function initialize() {
         earth = new WE.map('earth_div', {
           tilting: false,
+          sky: false
         });
         WE.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
           attribution: '© OpenStreetMap contributors'
@@ -116,7 +117,9 @@
     </script>
   </head>
   <body onload="initialize()">
-    <div id="earth_div"></div>
+    <div id="earth_div">
+      <h1 id="titleText">Click on a Country to Get More Information</h1>
+    </div>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
       <div id="side-panel">

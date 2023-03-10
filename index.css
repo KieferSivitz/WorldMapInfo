@@ -8,6 +8,7 @@ body {
   display: flex;
   height: 100%;
   overflow: hidden;
+  color: white;
 }
 
 code {
@@ -16,8 +17,10 @@ code {
 }
 
 #root {
+  background-color: rgb(108, 7, 202);
   width: 35%;
   font-size: 1.5em;
+  padding: 20px;
 }
 html {
   padding: 0; 
@@ -30,19 +33,23 @@ html {
   bottom: 0;
   left: 0;
   width: 80%;
-  background-color: darkcyan;
+  background-color: rgb(18, 18, 18);
+  text-align: center;
 }
 
 #side-panel {
   padding-top: 5px;
   text-align: center;
-  background-color: blueviolet;
   height: 100%;
 }
 
 #dataDump {
   text-align: left;
   width: 100%;
+}
+
+#titleText {
+  font-size: 3em;
 }
 
 table {
