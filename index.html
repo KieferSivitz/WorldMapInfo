@@ -69,7 +69,7 @@
           if (json2 && json2.tld) {
             tld = json2.tld.join(', ');
           }
-          const capital = json2 ? json2.capital[0] : '';
+          const capital = (json2 && json2?.capital?.length > 0) ? json2.capital[0] : '';
 
           if (json2) {
             Object.assign(data, {
@@ -80,7 +80,7 @@
               Currencies : munny,
               UNMember : json2.unMember,
               TLD: tld,
-              NameForPeople: json2.demonyms.eng.f,
+              NameForPeople: json2?.demonyms?.eng?.f,
               Languages: languages
             });
           }
