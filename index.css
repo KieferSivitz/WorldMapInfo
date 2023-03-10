@@ -76,6 +76,11 @@ table {
   padding-bottom: 1px;
 }
 
+#countryCoat {
+  max-width: 320px;
+  max-height: 320px;
+}
+
 table {
   width: 100%;
 }

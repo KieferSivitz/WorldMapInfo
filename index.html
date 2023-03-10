@@ -83,6 +83,9 @@
               Languages: languages
             });
           }
+          if (json2.coatOfArms) {
+            document.querySelector('#countryCoat').src = json2.coatOfArms.png;
+          }
           if (data.CountryCode){
             makeNastyTableFromObject(data, '#dataDump');
           }
@@ -130,6 +133,8 @@
         <image id="countryFlag"></image>
         <p id="countryName"></p>
         <p id="dataDump"></p>
+        <p>Coat of Arms</p>
+        <image id="countryCoat"></image>
       </div>
     </div>
   </body>
