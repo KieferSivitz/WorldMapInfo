@@ -55,6 +55,9 @@ html {
   text-align: left;
   width: 95%;
 }
+#jsonList table {
+  text-align: left;
+}
 #moreDetails {
   margin: 0;
 }
@@ -68,12 +71,15 @@ p {
 }
 table, th, td {
   border: 1px solid;
+  table-layout: fixed;
+  width: 100%;
 }
 
 table {
   padding-left: 1px;
   padding-right: 1px;
   padding-bottom: 1px;
+  width: 100%;
 }
 
 #countryCoat {
@@ -81,9 +87,6 @@ table {
   max-height: 320px;
 }
 
-table {
-  width: 100%;
-}
 td {
   padding: 5px;
   padding-left: 10px;

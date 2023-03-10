@@ -32,6 +32,8 @@
 
         document.querySelector('#countryCoatLabel').textContent = '';
         document.querySelector('#countryCoat').src = '';
+        document.querySelector('#jsonListLabel').textContent = '';
+        document.querySelector('#jsonList').textContent = '';
         try {
           const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`);
           const json = await res.json();
@@ -56,22 +58,24 @@
           });
 
           let munny;
-          if (json2 && json2.currencies) {
-            Object.keys(json2.currencies).forEach((key) => {
-              munny = `${key} - ${json2.currencies[key].name} - ${json2.currencies[key].symbol}`;
-            });
-          }
           let languages = '';
-          if (json2 && json2.languages) {
-            languages = Object.values(json2.languages).join(', ');
-          }
           let tld;
-          if (json2 && json2.tld) {
-            tld = json2.tld.join(', ');
-          }
-          const capital = (json2 && json2?.capital?.length > 0) ? json2.capital[0] : '';
-
           if (json2) {
+            let merged = { ...json, ...json2}
+            document.querySelector('#jsonListLabel').textContent = 'Raw Data Dump';
+            makeNastyTableFromObject(merged, '#jsonList');
+            const capital = (json2?.capital?.length > 0) ? json2.capital[0] : '';
+            if (json2.currencies) {
+              Object.keys(json2.currencies).forEach((key) => {
+                munny = `${key} - ${json2.currencies[key].name} - ${json2.currencies[key].symbol}`;
+              });
+            }
+            if (json2.languages) {
+              languages = Object.values(json2.languages).join(', ');
+            }
+            if (json2.tld) {
+              tld = json2.tld.join(', ');
+            }
             Object.assign(data, {
               Population : json2.population,
               DrivesOn : json2?.car?.side,
@@ -83,16 +87,18 @@
               NameForPeople: json2?.demonyms?.eng?.f,
               Languages: languages
             });
+            if (data.CountryCode){
+              makeNastyTableFromObject(data, '#dataDump');
+            }
+
           }
+
           if (json2 && json2.coatOfArms) {
             document.querySelector('#countryCoat').src = json2.coatOfArms?.svg || '';
             document.querySelector('#countryCoatLabel').textContent = 'Coat of Arms';
           } else {
             document.querySelector('#countryCoatLabel').src = '';
             document.querySelector('#countryCoat').textContent = '';
-          }
-          if (json2 && data.CountryCode){
-            makeNastyTableFromObject(data, '#dataDump');
           }
         } catch (e) {
           console.error(e);
@@ -137,6 +143,8 @@
         <p id="dataDump"></p>
         <p id="countryCoatLabel"></p>
         <image id="countryCoat"></image>
+        <p id="jsonListLabel"></p>
+        <p id="jsonList"></p>
       </div>
     </div>
   </body>
