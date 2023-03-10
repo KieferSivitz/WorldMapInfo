@@ -30,6 +30,8 @@
         document.querySelector('#dataDump').innerHTML = '';
         const data = { };
 
+        document.querySelector('#countryCoatLabel').textContent = '';
+        document.querySelector('#countryCoat').src = '';
         try {
           const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`);
           const json = await res.json();
@@ -84,10 +86,10 @@
           }
           if (json2 && json2.coatOfArms) {
             document.querySelector('#countryCoat').src = json2.coatOfArms?.svg || '';
-            document.querySelector('#countryCoatLabel').src = 'Coat of Arms';
+            document.querySelector('#countryCoatLabel').textContent = 'Coat of Arms';
           } else {
             document.querySelector('#countryCoatLabel').src = '';
-            document.querySelector('#countryCoat').src = '';
+            document.querySelector('#countryCoat').textContent = '';
           }
           if (json2 && data.CountryCode){
             makeNastyTableFromObject(data, '#dataDump');
